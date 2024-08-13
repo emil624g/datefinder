@@ -1,4 +1,4 @@
-function enddate() {
+function enddate(enddate) {
     const d = new Date();
     let currentYear = d.getFullYear();
     let currentMonth = d.getMonth();
@@ -96,11 +96,7 @@ function enddate() {
         i++;
     }
 
-    console.log("Write an end date in this format: 2021-03-25");
-
-    return new Promise((resolve) => {
-        process.stdin.once("data", (data) => {
-            const p = new Date(data.toString().trim());
+            const p = new Date(enddate.toString().trim());
             let endYear = p.getFullYear();
             let endMonth = p.getMonth();
             let endDay = p.getDate();
@@ -123,9 +119,7 @@ function enddate() {
             dates.splice(endMonth + 1, key);
             dates.splice(0, currentMonth);
 
-            resolve(dates);
-        });
-    });
-}
+            return dates;
+        };
 
 module.exports = enddate;

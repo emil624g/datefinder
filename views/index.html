@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datefinder</title>
+</head>
+<body>
+    <h1>Datefinder</h1>
+    <p>Write an enddate:</p>
+    <input type="text" id="enddate" placeholder="2024-11-25">
+    <p>Only weekends?</p>
+    <input type="text" id="weekend" placeholder="y/n">
+    <p>Write unavailable dates:</p>
+    <input type="text" id="unavailableDates" placeholder="2024-10-13, 2024-10-14, 2024-11-03"><br><br>
+    
+    <input type="submit" id="button">
+
+    <div id="availableDatesDiv"></div>
+</body>
+
+<script>
+    const button = document.getElementById("button");
+
+    button.addEventListener('click', function() {
+        const enddate = document.getElementById("enddate").value;
+        const weekend = document.getElementById("weekend").value;
+        const unavailableDates = document.getElementById("unavailableDates").value;
+
+        let dates = {enddate: enddate, weekend: weekend, unavailableDates: unavailableDates};
+
+        fetch('/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dates)
+        })
+        .then(response => response.json())
+        .then(availableDates => {
+            const availableDatesDiv = document.getElementById("availableDatesDiv");
+
+                availableDates.forEach(e => {
+                    const monthName = Object.keys(e)[1];
+                    const days = e[monthName];
+
+                    const monthElement = document.createElement('p');
+                    monthElement.textContent = `${monthName}: ${days.join(', ')}`;
+                    availableDatesDiv.appendChild(monthElement);
+                });
+        });
+    });
+        
+</script>
+
+</html>

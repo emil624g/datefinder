@@ -1,11 +1,6 @@
-function weekend(dates){
+function weekend(dates, weekend){
 
-    console.log("Want only weekends? Answer y/n");
-
-    return new Promise((resolve) => {
-        process.stdin.once("data", (info) => {
-
-            if (info == "n"){
+            if (weekend == "n"){
                 dates = dates;
             } else {
                 const d = new Date();
@@ -14,7 +9,7 @@ function weekend(dates){
                 dates.forEach((e) => {
                     e = e[Object.keys(e)[Object.keys(e).length - 1]];
                     for (let i = 0; i < e.length; i++) {
-                        if (key % 7 == 1 || key % 7 == 2 || key % 7 == 3 || key % 7 == 4 || key % 7 == 5){
+                        if (key % 7 == 1 || key % 7 == 2 || key % 7 == 3 || key % 7 == 4){
                             e.splice(i, 1);
                             i--;
                         }
@@ -23,9 +18,7 @@ function weekend(dates){
                 })
             }
 
-            resolve(dates);
-        })
-    })
-}
+            return dates;
+        }
 
 module.exports = weekend;

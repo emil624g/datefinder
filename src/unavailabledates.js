@@ -1,13 +1,10 @@
-function unavailabledates(dates) {
-    console.log("Write unavailable dates in this format: 2024-09-25, 2024-10-13, 2024-10-14");
+function unavailabledates(dates, unavailableDates) {
 
-    return new Promise((resolve) => {
-        process.stdin.once("data", (info) => {
-            info = info.toString().trim().split(",");
+            unavailableDates = unavailableDates.toString().trim().split(",");
 
             let delDates = [];
-            for (let i = 0; i < info.length; i++) {
-                const l = new Date(info[i]);
+            for (let i = 0; i < unavailableDates.length; i++) {
+                const l = new Date(unavailableDates[i]);
                 let delYear = l.getFullYear();
                 let delMonth = l.getMonth();
                 let delDay = l.getDate();
@@ -28,9 +25,7 @@ function unavailabledates(dates) {
                 });
             });
 
-            resolve(dates);
-        });
-    });
-}
+            return dates;
+        }
 
 module.exports = unavailabledates;
